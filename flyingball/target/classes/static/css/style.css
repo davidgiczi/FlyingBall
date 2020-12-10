@@ -1,0 +1,52 @@
+@charset "UTF-8";
+
+body {
+	text-align: center;
+	background-image: url("/img/arena.jpg");
+	background-repeat: no-repeat;
+	background-attachment: fixed;
+	background-size: 100%;
+}
+
+table {
+	border: none;
+	margin-left: auto;
+	margin-right: auto;
+	width: 40%;
+}
+
+td, tr {
+	border: none;
+	width: 55px;
+	height: 90px;
+}
+
+font{
+	font-size: 100px;
+	color: orange;
+}
+
+.content {
+	font-size: 30px;
+	color: #EA4335;
+	font-family: Book Antiqua;
+}
+
+.title {
+	font-size: 25px;
+	color: white;
+	font-family: Book Antiqua;
+}
+
+.player{
+	width: 55px;
+	height:90px;
+}
+.home_player{
+	width: 80px;
+	height:90px;
+}
+.ball{
+	width: 55px;
+	height: 60px;
+}
