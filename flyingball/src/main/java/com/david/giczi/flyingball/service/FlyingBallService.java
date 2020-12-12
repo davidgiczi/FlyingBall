@@ -15,6 +15,10 @@ public interface FlyingBallService {
 	Component bounceBackFromNorthBorder(Component ball);
 	Component bounceBackFromEastBorder(Component ball);
 	Component bounceBackFromSouthBorder(Component ball);
+	Component bounceBackFromNorthEastCorner(Component ball);
+	Component bounceBackFromNorthWestCorner(Component ball);
+	Component bounceBackFromSouthEastCorner(Component ball);
+	Component bounceBackFromSouthWestCorner(Component ball);
 	Component flyNorth(Component ball);
 	Component flyNorthEast(Component ball);
 	Component flyEast(Component ball);
