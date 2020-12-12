@@ -87,17 +87,61 @@ public class FlyingBallGameController {
 		if(service.isKickedTheBall(player, ball)) {
 			
 			ball = service.kickTheBall(ball);
-		
+			
 		}
 		else if(service.isGoal(ball)) {
 			
-			response.getWriter().append("Ez becsúszott! Szeretnél új játékot játszani?" );
+			response.getWriter().append("Ez becsúszott! Szeretnél új játékot játszani?");
 			return;
+		}
+		else if(service.canBallFlyNorth(ball)) {
+		
+			ball = service.bounceBackFromNorthWestCorner(ball);
+			ball = service.bounceBackFromNorthBorder(ball);
+			ball = service.bounceBackFromNorthEastCorner(ball);
+			ball = service.flyNorth(ball);
+			
+		}
+		else if(service.canBallFlyNorthEast(ball)) {
+			
+			ball = service.bounceBackFromNorthBorder(ball);
+			ball = service.bounceBackFromNorthEastCorner(ball);
+			ball = service.bounceBackFromEastBorder(ball);
+			ball = service.flyNorthEast(ball);
+			
+		}
+		else if(service.canBallFlyEast(ball)) {
+			
+			ball = service.bounceBackFromNorthEastCorner(ball);
+			ball = service.bounceBackFromEastBorder(ball);
+			ball = service.bounceBackFromSouthEastCorner(ball);
+			ball = service.flyEast(ball);
+		}
+		else if(service.canBallFlySouthEast(ball)) {
+		
+			ball = service.bounceBackFromEastBorder(ball);
+			ball = service.bounceBackFromSouthEastCorner(ball);
+			ball = service.bounceBackFromSouthBorder(ball);
+			ball = service.flySouthEast(ball);
+		
+		}
+		else if(service.canBallFlySouth(ball)) {
+			
+			ball = service.bounceBackFromSouthEastCorner(ball);
+			ball = service.bounceBackFromSouthBorder(ball);
+			ball = service.bounceBackFromSouthWestCorner(ball);
+			ball = service.flySouth(ball);
+
 		}
 		else if(service.canBallFlySouthWest(ball)) {
 			
 			ball = service.bounceBackFromSouthBorder(ball);
 			ball = service.flySouthWest(ball);
+
+		}
+		else if(service.canBallFlyWest(ball)) {
+			
+			ball = service.flyWest(ball);
 			
 		}
 		else if(service.canBallFlyNorthWest(ball)) {
@@ -105,43 +149,9 @@ public class FlyingBallGameController {
 			ball = service.bounceBackFromNorthBorder(ball);
 			ball = service.flyNorthWest(ball);
 			
-			
 		}
-		else if(service.canBallFlyWest(ball)) {
-			 
-			ball = service.flyWest(ball);
-			
-		}
-		else if(service.canBallFlyEast(ball)) {
-			
-			ball = service.bounceBackFromEastBorder(ball);
-			ball = service.flyEast(ball);
-		}
-		else if(service.canBallFlyNorthEast(ball)) {
-			
-			ball = service.bounceBackFromNorthBorder(ball);
-			ball = service.bounceBackFromEastBorder(ball);
-			ball = service.flyNorthEast(ball);
-			
-		}
-		else if(service.canBallFlySouthEast(ball)) {
-			
-			ball = service.bounceBackFromSouthBorder(ball);
-			ball = service.bounceBackFromEastBorder(ball);
-			ball = service.flySouthEast(ball);
-		}
-		else if(service.canBallFlySouth(ball)) {
-			
-			ball = service.bounceBackFromSouthBorder(ball);
-			ball = service.flySouth(ball);
-			
-		}
-		else if(service.canBallFlyNorth(ball)){
-			
-			ball = service.bounceBackFromNorthBorder(ball);
-			ball = service.flyNorth(ball);
-		}
-			
+		
+		
 		response.getWriter().append("ball_" + ball.getLogicBoardIndex());
 		request.getSession().setAttribute("ball", ball);
 

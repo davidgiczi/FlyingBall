@@ -47,7 +47,7 @@ public class FlyingBallServiceImpl implements FlyingBallService{
 		
 		gameBoard
 		.stream()
-		.filter(c -> c.getViewBoard_x() ==  0 && c.getViewBoard_y() == 0)
+		.filter(c -> c.getViewBoard_x() ==  0  && c.getViewBoard_y() == 0)
 		.forEach(c -> c.setBackground("ball"));
 		gameBoard
 		.stream()
@@ -162,34 +162,22 @@ public class FlyingBallServiceImpl implements FlyingBallService{
 	@Override
 	public Component bounceBackFromNorthBorder(Component ball) {
 		
-		
-		if(ball.getViewBoard_x() < 1) {
+		if(ball.getViewBoard_x() == 0 && ball.getViewBoard_y() != 0 && ball.getViewBoard_y() != Config.BOARD_COLS - 1) {
 			
-			int randomDirect = (int)(Math.random() * 100);
-			
-			if(ball.getViewBoard_x() == 0 && ball.getViewBoard_y() == Config.BOARD_COLS - 1) {
-				ball.setActualDirection(Direction.SOUTH);
-				ball = flySouth(ball);
-				return ball;
-					}
-			else if(randomDirect >= 0 && randomDirect < 33) {
+			if(ball.getActualDirection() == Direction.NORTH_WEST) {
+				
 				ball.setActualDirection(Direction.SOUTH_WEST);
 				ball = flySouthWest(ball);
 				
 			}
-			else if(randomDirect >= 33 && randomDirect < 67) {
-				ball.setActualDirection(Direction.SOUTH);
-				ball = flySouth(ball);	
-			}
-			else if(randomDirect >= 67) {
+			else if(ball.getActualDirection() == Direction.NORTH_EAST) {
 				
 				ball.setActualDirection(Direction.SOUTH_EAST);
 				ball = flySouthEast(ball);
 			}
-	
 			
 		}
-		
+	
 		return ball;
 	}
 
@@ -197,43 +185,43 @@ public class FlyingBallServiceImpl implements FlyingBallService{
 	@Override
 	public Component bounceBackFromEastBorder(Component ball) {
 		
-		if(ball.getViewBoard_y() >= Config.BOARD_COLS - 1) {
+		
+		if(ball.getViewBoard_x() != 0 && ball.getViewBoard_x() != Config.BOARD_ROWS - 1 && ball.getViewBoard_y() == Config.BOARD_COLS - 1) {
 			
-			int randomDirect = (int)(Math.random() * 100);
+			int randomDirect = (int) (Math.random() * 100);
 			
-			if(ball.getViewBoard_x() == 0 && ball.getViewBoard_y() == Config.BOARD_COLS - 1) {
+			if(randomDirect >= 0 && randomDirect < 20) {
 				
-				ball.setActualDirection(Direction.WEST);
-				ball = flyWest(ball);
-				return ball;
-				}
-			else if(ball.getViewBoard_x() == Config.BOARD_ROWS - 1 && ball.getViewBoard_y() == Config.BOARD_COLS - 1) {
+				ball.setActualDirection(Direction.NORTH);
+				ball = flyNorth(ball);
 				
-				ball.setActualDirection(Direction.WEST);
-				ball = flyWest(ball);
-				return ball;
-				}
-			else if(randomDirect >= 0 && randomDirect < 33) {
-						
+			}
+			else if(randomDirect >= 20 && randomDirect < 40) {
+				
 				ball.setActualDirection(Direction.NORTH_WEST);
 				ball = flyNorthWest(ball);
-		
+				
 			}
-			else if(randomDirect >= 33 && randomDirect < 67) {
+			else if(randomDirect >= 40 && randomDirect < 60) {
 				
 				ball.setActualDirection(Direction.WEST);
-				ball = flyWest(ball);	
-			}
-			else if(randomDirect >= 67) {
+				ball = flyWest(ball);
 				
-				ball.setActualDirection(Direction.SOUTH_WEST );
+			}
+			else if(randomDirect >= 60 && randomDirect < 80) {
+				
+				ball.setActualDirection(Direction.SOUTH_WEST);
 				ball = flySouthWest(ball);
+			}
+			else {
+				
+				ball.setActualDirection(Direction.SOUTH);
+				ball = flySouth(ball);
 				
 			}
 			
 		}
-		
-		
+			
 		return ball;
 	}
 
@@ -241,34 +229,166 @@ public class FlyingBallServiceImpl implements FlyingBallService{
 	@Override
 	public Component bounceBackFromSouthBorder(Component ball) {
 		
-		if(ball.getViewBoard_x() >= Config.BOARD_ROWS - 1) {
-				
-			int randomDirect = (int)(Math.random() * 100);
+		if(ball.getViewBoard_x() == Config.BOARD_ROWS - 1 && ball.getViewBoard_y() != 0 && ball.getViewBoard_y() != Config.BOARD_COLS - 1) {
 			
-			if(ball.getViewBoard_x() == Config.BOARD_ROWS - 1 && ball.getViewBoard_y() == Config.BOARD_COLS - 1) {
-				ball.setActualDirection(Direction.NORTH);
-				ball = flyNorth(ball);
-				return ball;
-		}	
-			else if(randomDirect >= 0 && randomDirect < 33) {
+			if(ball.getActualDirection() == Direction.SOUTH_WEST) {
+				
 				ball.setActualDirection(Direction.NORTH_WEST);
 				ball = flyNorthWest(ball);
+				
 			}
-			else if(randomDirect >= 33 && randomDirect < 67) {
+			else if(ball.getActualDirection() == Direction.SOUTH_EAST) {
 				
 				ball.setActualDirection(Direction.NORTH_EAST);
 				ball = flyNorthEast(ball);
+			}
+	
 		}
-			else if(randomDirect >= 67) {
-				
-				ball.setActualDirection(Direction.NORTH);
-				ball = flyNorth(ball);
-			}		
-	}
-		
+			
 		return ball;
 		}
 	
+	@Override
+	public Component kickTheBall(Component ball) {
+		
+		int randomDirect = (int) (Math.random() * 100);
+		
+		if(ball.getViewBoard_x() == Config.BOARD_ROWS - 1 && ball.getViewBoard_y() == 0) {
+			
+		ball = bounceBackFromSouthWestCorner(ball);
+		
+		}
+		else if(ball.getViewBoard_x() == 0 && ball.getViewBoard_y() == 0){
+			
+		ball = bounceBackFromNorthWestCorner(ball);
+	
+		}
+		else if(randomDirect >= 0 && randomDirect < 33) {
+			
+			ball.setActualDirection(Direction.NORTH_EAST);
+			ball = flyNorthEast(ball);
+			
+		}
+		else if(randomDirect >= 33 && randomDirect < 67) {
+			
+			ball.setActualDirection(Direction.EAST);
+			ball = flyEast(ball);
+		}
+		else {
+			
+			ball.setActualDirection(Direction.SOUTH_EAST);
+			ball = flySouthEast(ball);
+			
+		}
+		
+		return ball;
+	}
+	
+	
+	@Override
+	public Component bounceBackFromNorthEastCorner(Component ball) {
+		
+		
+		if(ball.getViewBoard_x() == 0 && ball.getViewBoard_y() == Config.BOARD_COLS - 1) {
+			
+			int randomDirect = (int) (Math.random() * 100);
+			
+			if(randomDirect >= 0 && randomDirect < 50) {
+				
+				ball.setActualDirection(Direction.WEST);
+				ball = flyWest(ball);
+			}
+			else {
+				
+				ball.setActualDirection(Direction.SOUTH_WEST);
+				ball = flySouthWest(ball);
+			}
+			
+		}
+		
+		return ball;
+	}
+
+	@Override
+	public Component bounceBackFromNorthWestCorner(Component ball) {
+		
+		if(ball.getViewBoard_x() == 0 && ball.getViewBoard_y() == 0) {
+			
+			int randomDirect = (int) (Math.random() * 100);
+			
+			if(randomDirect >= 0 && randomDirect < 33) {
+				
+				ball.setActualDirection(Direction.EAST);
+				ball = flyEast(ball);
+			}
+			else if(randomDirect >= 33 && randomDirect < 67){
+				
+				ball.setActualDirection(Direction.SOUTH_EAST);
+				ball = flySouthEast(ball);
+			}
+			else {
+				
+				ball.setActualDirection(Direction.SOUTH);
+				ball = flySouth(ball);
+			}			
+		}
+		
+		
+		
+		return ball;
+	}
+
+	@Override
+	public Component bounceBackFromSouthEastCorner(Component ball) {
+		
+		if(ball.getViewBoard_x() == Config.BOARD_ROWS - 1 && ball.getViewBoard_y() == Config.BOARD_COLS - 1) {
+			
+			int randomDirect = (int) (Math.random() * 100);
+			
+			if(randomDirect >= 0 && randomDirect < 50) {
+				
+				ball.setActualDirection(Direction.WEST);
+				ball = flyWest(ball);
+			}
+			else {
+				
+				ball.setActualDirection(Direction.NORTH_WEST);
+				ball = flyNorthWest(ball);
+			}
+			
+		}
+				
+		return ball;
+	}
+
+	@Override
+	public Component bounceBackFromSouthWestCorner(Component ball) {		
+		
+		
+		if(ball.getViewBoard_x() == Config.BOARD_ROWS - 1 && ball.getViewBoard_y() == 0) {
+		
+		int randomDirect = (int) (Math.random() * 100);
+		
+		if(randomDirect >= 0 && randomDirect < 33) {
+			
+			ball.setActualDirection(Direction.EAST);
+			ball = flyEast(ball);
+		}
+		else if(randomDirect >= 33 && randomDirect < 67){
+			
+			ball.setActualDirection(Direction.NORTH_EAST);
+			ball = flyNorthEast(ball);
+		}
+		else {
+			
+			ball.setActualDirection(Direction.NORTH);
+			ball = flyNorth(ball);
+		}
+	}	
+			
+		return ball;
+	}
+
 	@Override
 	public Component flyNorth(Component ball) {
 		
@@ -355,44 +475,7 @@ public class FlyingBallServiceImpl implements FlyingBallService{
 		return player.equals(ball);
 	}
 
-	@Override
-	public Component kickTheBall(Component ball) {
-		
-		int randDirection = (int) (Math.random() * 100);
-			
-		if(ball.getViewBoard_x() == 0 && ball.getViewBoard_y() == 0) {
-			
-			ball.setActualDirection(Direction.SOUTH_EAST);
-			ball = flySouthEast(ball);
-			return ball;
-		}
-		else if(ball.getViewBoard_x() == 0 && ball.getViewBoard_y() == Config.BOARD_COLS - 1) {
-			
-			ball.setActualDirection(Direction.NORTH_EAST);
-			ball = flyNorthEast(ball);
-			return ball;
-		}
-		else if(randDirection >= 0 && randDirection < 33 ) {
-				
-			ball.setActualDirection(Direction.NORTH_EAST);
-			ball = flyNorthEast(ball);
-		
-		}
-		else if(randDirection >= 33 && randDirection < 67) {
-			
-			ball.setActualDirection(Direction.EAST);
-			ball = flyEast(ball);
-		}
-		else if(randDirection >= 67) {
-					
-			ball.setActualDirection(Direction.SOUTH_EAST);
-			ball = flySouthEast(ball);
 	
-		}
-		
-		return ball;
-	}
-
 	@Override
 	public boolean isGoal(Component ball) {
 			
