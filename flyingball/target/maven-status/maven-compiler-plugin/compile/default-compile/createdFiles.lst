@@ -1,9 +1,0 @@
-com\david\giczi\flyingball\domain\Component.class
-com\david\giczi\flyingball\utils\Direction.class
-com\david\giczi\flyingball\FlyingballApplication.class
-META-INF\spring-configuration-metadata.json
-com\david\giczi\flyingball\config\Config.class
-com\david\giczi\flyingball\service\FlyingBallServiceImpl.class
-com\david\giczi\flyingball\controller\FlyingBallGameController.class
-com\david\giczi\flyingball\config\GameParam.class
-com\david\giczi\flyingball\service\FlyingBallService.class
