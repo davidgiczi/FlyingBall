@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>FlyingBall Game</title>
+<link th:href="@{/css/style.css}"  rel="stylesheet">
+</head>
+<body>
+
+<br>
+<font th:id="time"><b>[0:00]</b></font>
+<br><br><br><br><br><br><br>
+
+<table>
+
+<tr th:each="x: ${#numbers.sequence(0, board_rows - 1)}">
+<td th:each="y: ${#numbers.sequence(0, board_cols - 1)}" th:id="${x * board_cols + y}"
+	th:switch="${board[x * board_cols + y].background}">
+	<img class="ball" th:case="'ball'" 	th:src="@{/img/ball.jpg}" id="ball"/>
+	<img class="player" th:case="'player'" th:src="@{/img/Garfield.jpg}" id="player"/>
+	<img class="home_player" th:case="'home_player'" th:src="@{/img/Odie.jpg}" id="home_player"/>
+	
+	</td>
+</tr>
+
+</table>
+
+
+</body>
+
+
+<input type="hidden" th:value=${board_cols} th:id="cols" >
+
+
+<script type="text/javascript" th:src="@{/script/script.js}"></script>
+
+</html>
